@@ -1,0 +1,170 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* .app-container {
+  display: grid;
+  justify-content: center;
+  grid-auto-rows: auto;
+} */
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgb(186, 178, 178);
+  border-bottom: 1px solid rgb(186, 178, 178);
+  margin: 30px 0;
+}
+
+.nav-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  width: 70%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h2 {
+  color: black;
+}
+
+.logo img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.nav-main input {
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  border: 2px solid greenyellow;
+  outline: none;
+  width: 320px;
+  background: transparent;
+  /* color: #fff; */
+  color: black;
+}
+
+.nav-main input::placeholder {
+  /* color: white; */
+  color: #9b9b9b;
+}
+
+#results-size-container {
+  display: flex;
+  justify-content: center;
+}
+
+#results-size {
+  display: flex;
+  justify-content: flex-end;
+  width: 70%;
+}
+
+.tb-container {
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  width: 70%;
+  color: #9b9b9b;
+}
+
+thead {
+  background-color: rgb(58, 57, 57);
+  color: white;
+  border-top: 1px solid rgb(186, 178, 178);
+  border-bottom: 1px solid rgb(186, 178, 178);
+}
+
+thead tr {
+  height: 45px;
+  justify-content: space-around;
+}
+
+tr {
+  display: flex;
+  border-bottom: 1px solid rgb(186, 178, 178);
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+}
+
+th, td {
+  flex: 1 1 12.5%;
+  text-align: center;
+}
+
+/* thead th, thead i {
+  display: inline;
+} */
+
+th:hover {
+  cursor: pointer
+}
+
+.la-sort {
+  /* visibility: hidden; */
+}
+
+
+/* tr:last-of-type {
+  align-self: stretch;
+} */
+
+/* td.td-order {
+  justify-self: center;
+} */
+
+.td-name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.td-name>a {
+  flex-basis: 60%;
+  text-align: left;
+}
+
+.td-name img {
+  width: 18px;
+  height: 18px;
+}
+
+a {
+  text-decoration: none;
+  /* color: white; */
+  color: black;
+  font-weight:bold
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+tr img {
+  width: 135px;
+  height: 50px;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
