@@ -22,8 +22,8 @@ function SearchBar({ setList, filterList, setAutoRefresh }) {
     <nav className="navbar">
         <div className="nav-main">
             <div className="logo">
-                <a href="/"><img src={logo} alt="logo" /></a>
-                <a href="/"><h2>Coin Monitor</h2></a>
+                <a href="/coin_monitor_reactjs"><img src={logo} alt="logo" /></a>
+                <a href="/coin_monitor_reactjs"><h2>Coin Monitor</h2></a>
             </div>
             <form onSubmit={handleSubmit} >
                 <input type="text" autoFocus placeholder="Filter by coin name or ticker symbol" value={inputValue} onChange={handleChange} />
