@@ -19,8 +19,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://adtx.github.io/coin_monitor_reactjs",
   "eslintConfig": {
     "extends": [
       "react-app",
