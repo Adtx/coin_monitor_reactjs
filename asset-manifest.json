@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/coin_monitor_reactjs/static/css/main.0ba36c80.css",
-    "main.js": "/coin_monitor_reactjs/static/js/main.fdbc7b06.js",
+    "main.js": "/coin_monitor_reactjs/static/js/main.76d8521f.js",
     "static/media/logo.png": "/coin_monitor_reactjs/static/media/logo.8366ecfaffbbd49eec50.png",
     "index.html": "/coin_monitor_reactjs/index.html",
     "main.0ba36c80.css.map": "/coin_monitor_reactjs/static/css/main.0ba36c80.css.map",
-    "main.fdbc7b06.js.map": "/coin_monitor_reactjs/static/js/main.fdbc7b06.js.map"
+    "main.76d8521f.js.map": "/coin_monitor_reactjs/static/js/main.76d8521f.js.map"
   },
   "entrypoints": [
     "static/css/main.0ba36c80.css",
-    "static/js/main.fdbc7b06.js"
+    "static/js/main.76d8521f.js"
   ]
 }
