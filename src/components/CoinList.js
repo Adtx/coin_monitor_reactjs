@@ -15,10 +15,10 @@ const ICON_CLASSNAMES = ['las la-sort-up', 'las la-sort-down', 'las la-sort']
 
 function CoinList({ data, setData, setAutoRefresh }) {
     const [sortingStatus, setSortingStatus] = useState(null)
-    const dataWasSet = useRef(false)
+    const dataHasBeenSorted = useRef(false)
     
     useEffect(() => {
-      if (!dataWasSet.current) {
+      if (!dataHasBeenSorted.current) {
         let sortingStatus = {};
         Object.keys(data[0]).forEach((key) => (sortingStatus[key] = 2));
         setSortingStatus(sortingStatus);
@@ -46,7 +46,7 @@ function CoinList({ data, setData, setAutoRefresh }) {
         document.querySelectorAll('i').forEach(icon => {if(icon.id !== `#${field}`) icon.className = 'las la-sort'})
         document.querySelectorAll(`#${field}`).forEach(icon => icon.className = ICON_CLASSNAMES[(sortingStatus[field] + 1) % ICON_CLASSNAMES.length])
         setData(sortedData)
-        dataWasSet.current = true
+        dataHasBeenSorted.current = true
         setSortingStatus(sortingStatus => {
             let obj = {}
             Object.keys(sortingStatus).forEach(key => {if(key !== field) obj[key] = 2})
