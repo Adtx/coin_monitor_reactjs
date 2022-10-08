@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const SORTING_FIELD = {
     NAME: 'name',
@@ -14,14 +14,17 @@ const SORTING_STATES = ['ASC', 'DESC', 'DEFAULT']
 const ICON_CLASSNAMES = ['las la-sort-up', 'las la-sort-down', 'las la-sort']
 
 function CoinList({ data, setData, setAutoRefresh }) {
-    const [sortingStatus, setSortingStatus] = useState({
-        [SORTING_FIELD.NAME]: 2,
-        [SORTING_FIELD.PRICE]: 2,
-        [SORTING_FIELD.DAY_CHANGE]: 2,
-        [SORTING_FIELD.WEEK_CHANGE]: 2,
-        [SORTING_FIELD.DAY_VOLUME]: 2,
-        [SORTING_FIELD.MKT_CAP]: 2
-    })
+    const [sortingStatus, setSortingStatus] = useState(null)
+    const dataWasSet = useRef(false)
+    
+    useEffect(() => {
+      if (!dataWasSet.current) {
+        let sortingStatus = {};
+        Object.keys(data[0]).forEach((key) => (sortingStatus[key] = 2));
+        setSortingStatus(sortingStatus);
+      }
+    }, [data]);
+    
 
     function handleSorting(field) {
         const sortingState = SORTING_STATES[(sortingStatus[field] + 1) % SORTING_STATES.length]
@@ -43,6 +46,7 @@ function CoinList({ data, setData, setAutoRefresh }) {
         document.querySelectorAll('i').forEach(icon => {if(icon.id !== `#${field}`) icon.className = 'las la-sort'})
         document.querySelectorAll(`#${field}`).forEach(icon => icon.className = ICON_CLASSNAMES[(sortingStatus[field] + 1) % ICON_CLASSNAMES.length])
         setData(sortedData)
+        dataWasSet.current = true
         setSortingStatus(sortingStatus => {
             let obj = {}
             Object.keys(sortingStatus).forEach(key => {if(key !== field) obj[key] = 2})
