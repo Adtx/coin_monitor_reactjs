@@ -74,7 +74,7 @@ function CoinList({ data, setData, setAutoRefresh }) {
     
     return (
         <div className="tb-container">
-        {data.length && sortingStatus && (
+        {data.length > 0 && sortingStatus != null && (
             <table>
                 <thead>
                     <tr>
