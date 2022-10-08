@@ -9,7 +9,12 @@ const SORTING_FIELD = {
     MKT_CAP: 'market_cap'
 }
 
-const SORTING_STATES = ['ASC', 'DESC', 'DEFAULT']
+const SORTING_STATES = {
+    ASCENDING: 'ASCENDING',
+    DESCENDING: 'DESCENDING',
+    DEFAULT: 'DEFAULT',
+    states: ['ASCENDING', 'DESCENDING', 'DEFAULT']
+}
 
 const ICON_CLASSNAMES = ['las la-sort-up', 'las la-sort-down', 'las la-sort']
 
@@ -18,7 +23,7 @@ function CoinList({ data, setData, setAutoRefresh }) {
     const dataHasBeenSorted = useRef(false)
     
     useEffect(() => {
-      if (!dataHasBeenSorted.current) {
+      if (data.length && !dataHasBeenSorted.current) {
         let sortingStatus = {};
         Object.keys(data[0]).forEach((key) => (sortingStatus[key] = 2));
         setSortingStatus(sortingStatus);
@@ -27,19 +32,19 @@ function CoinList({ data, setData, setAutoRefresh }) {
     
 
     function handleSorting(field) {
-        const sortingState = SORTING_STATES[(sortingStatus[field] + 1) % SORTING_STATES.length]
+        const sortingState = SORTING_STATES.states[sortingStatus[field]]
         console.log("handleSorting(): field: ", field)
         console.log("handleSorting(): sortingState: ", sortingState)
         let sortedData = null
         switch (sortingState) {
-            case 'ASC':
-                sortedData = field === SORTING_FIELD.NAME ? data.sort((a, b) => a.name>b.name ? 1 : a.name<b.name ? -1 : 0) : data.sort((a, b) => a[field] - b[field])
+            case SORTING_STATES.DEFAULT:
+                sortedData = data.sort((a, b) => typeof a[field] === 'number' ? a[field] - b[field] : (a[field]>b[field] ? 1 : a[field]<b[field] ? -1 : 0))
                 break;
-            case 'DESC':
-                sortedData = field === SORTING_FIELD.NAME ? data.sort((a, b) => a.name>b.name ? -1 : a.name<b.name ? 1 : 0) : data.sort((a, b) => (a[field] - b[field]) * -1)
+            case SORTING_STATES.ASCENDING:
+                sortedData = data.reverse()
                 break;
             default:
-                sortedData = data.sort((a, b) => (a[SORTING_FIELD.MKT_CAP] - b[SORTING_FIELD.MKT_CAP]) * -1)
+                sortedData = data.sort((a, b) => (a.market_cap - b.market_cap) * -1)
                 break;
         }
         console.log("handleSorting(): sortedData: ", sortedData)
@@ -49,8 +54,8 @@ function CoinList({ data, setData, setAutoRefresh }) {
         dataHasBeenSorted.current = true
         setSortingStatus(sortingStatus => {
             let obj = {}
-            Object.keys(sortingStatus).forEach(key => {if(key !== field) obj[key] = 2})
-            return {...obj, [field]: sortingStatus[field] + 1}})
+            Object.keys(sortingStatus).forEach(key => obj[key] = 2)
+            return {...obj, [field]: (sortingStatus[field] + 1) % SORTING_STATES.states.length}})
         setAutoRefresh(false)
     }
 
