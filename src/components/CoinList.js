@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const SORTING_FIELD = {
-    NAME: 'name',
-    PRICE: 'current_price',
-    DAY_CHANGE: 'price_change_percentage_24h',
-    WEEK_CHANGE: 'price_change_percentage_7d_in_currency',
-    DAY_VOLUME: 'total_volume',
-    MKT_CAP: 'market_cap'
+const TABLE_HEADER_DATA_FIELD = {
+    'Name': 'name',
+    'Price': 'current_price',
+    '24h %': 'price_change_percentage_24h',
+    '7d %': 'price_change_percentage_7d_in_currency',
+    '24h Volume': 'total_volume',
+    'Market Cap': 'market_cap'
 }
 
 const SORTING_STATES = {
@@ -48,8 +48,6 @@ function CoinList({ data, setData, setAutoRefresh }) {
                 break;
         }
         console.log("handleSorting(): sortedData: ", sortedData)
-        document.querySelectorAll('i').forEach(icon => {if(icon.id !== `#${field}`) icon.className = 'las la-sort'})
-        document.querySelectorAll(`#${field}`).forEach(icon => icon.className = ICON_CLASSNAMES[(sortingStatus[field] + 1) % ICON_CLASSNAMES.length])
         setData(sortedData)
         dataHasBeenSorted.current = true
         setSortingStatus(sortingStatus => {
@@ -76,30 +74,18 @@ function CoinList({ data, setData, setAutoRefresh }) {
     
     return (
         <div className="tb-container">
+        {data.length && sortingStatus && (
             <table>
                 <thead>
                     <tr>
-                        <th onClick={() => handleSorting(SORTING_FIELD.MKT_CAP)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>#
-                            <i id={SORTING_FIELD.MKT_CAP} className="las la-sort"></i>
+                        <th onClick={() => handleSorting('market_cap')} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>#
+                            <i id={'market_cap'} className={ICON_CLASSNAMES[sortingStatus.market_cap]}></i>
                         </th>
-                        <th onClick={() => handleSorting(SORTING_FIELD.NAME)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>Name
-                            <i id={SORTING_FIELD.NAME} className="las la-sort"></i>
-                        </th>
-                        <th onClick={() => handleSorting(SORTING_FIELD.PRICE)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>Price
-                            <i id={SORTING_FIELD.PRICE} className="las la-sort"></i>
-                        </th>
-                        <th onClick={() => handleSorting(SORTING_FIELD.DAY_CHANGE)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>24h %
-                            <i id={SORTING_FIELD.DAY_CHANGE} className="las la-sort"></i>
-                        </th>
-                        <th onClick={() => handleSorting(SORTING_FIELD.WEEK_CHANGE)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>7d %
-                            <i id={SORTING_FIELD.WEEK_CHANGE} className="las la-sort"></i>
-                        </th>
-                        <th onClick={() => handleSorting(SORTING_FIELD.DAY_VOLUME)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>24h Volume
-                            <i id={SORTING_FIELD.DAY_VOLUME} className="las la-sort"></i>
-                        </th>
-                        <th onClick={() => handleSorting(SORTING_FIELD.MKT_CAP)} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>Market Cap
-                            <i id={SORTING_FIELD.MKT_CAP} className="las la-sort"></i>
-                        </th>
+                        {Object.keys(TABLE_HEADER_DATA_FIELD).map(header => (
+                            <th key={header} onClick={() => handleSorting(TABLE_HEADER_DATA_FIELD[header])} onMouseEnter={e => e.target.firstChild.style = {visibility: 'visible'}}>#{header}
+                                <i id={TABLE_HEADER_DATA_FIELD[header]} className={ICON_CLASSNAMES[sortingStatus[TABLE_HEADER_DATA_FIELD[header]]]}></i>
+                            </th>
+                        ))}
                         <th>Last 7 Days</th>
                     </tr>
                 </thead>
@@ -138,6 +124,7 @@ function CoinList({ data, setData, setAutoRefresh }) {
                     })}
                 </tbody>
             </table>
+        )}
         </div>
     )
 }
